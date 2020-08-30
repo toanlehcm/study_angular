@@ -17,6 +17,7 @@ import {
         [ngStyle]="{color: textColor}">{{ title }}</h1>
     <button (click) = "onButtonClick()">{{ withBorder ? hide_btn : show_btn }}</button>
     <app-hello [text] = "title" (buttonClicked) = "onBtnCLickedFromHello($event)"></app-hello>
+    <app-hi></app-hi>
   `,
   styleUrls: ['./app.component.css']
 })

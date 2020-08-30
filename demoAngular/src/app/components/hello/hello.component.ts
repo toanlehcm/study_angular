@@ -27,6 +27,10 @@ export class HelloComponent
   @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
   // @Output() buttonClicked: EventEmitter<string> = new EventEmitter<string>();
 
+  // constructor(private _dataService: Dataservice) { //inject
+  //   this._dataService
+  // }
+
   onButtonClicked() {
     this.text = 'Changed from hello component';
     this.buttonClicked.emit(this.text);
