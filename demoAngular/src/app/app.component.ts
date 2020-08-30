@@ -1,72 +1,81 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  AfterViewInit,
+  AfterContentInit,
+  AfterViewChecked,
+  AfterContentChecked,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
-  selector: 'app-root', //document.querySelector('app-root'); <app-root></app-root>
-  // templateUrl: './app.component.html',
+  selector: 'app-root',
   template: `
-    <!-- <h1>welcome app</h1>-->
-    <!-- <app-hello></app-hello>
-    <app-hi></app-hi> -->
-
-    <!-- stringInterpolation -->
-    <h1 [ngStyle]="{color: textColor, background: backgroundColor}">Welcome to {{ title }} </h1>
-    <h1 [ngStyle]="styleObj">{{ title }}</h1>
-
-    <!-- SquareBrackets -->
-    <h1 [style.color] = "textColor" [style.backgroundColor] = 'backgroundColor' [textContent] = "title"></h1>
-
-    <!-- class binding -->
     <h1 [class.with-border] = "withBorder"
-        [ngStyle]="{color: textColor}"
-        (mouseover) = "onTextMouseOver()"
-        (mouseout) = "onTextMouseOut()">{{ title }}</h1>
-
-        <!-- ngClass -->
-    <h1 [ngClass]="{
-      'with-border': withBorder,
-      'other-class': true
-    }">{{ title }}</h1> <!-- if other-class is true, other-class will be show in element -->
-
-    <!-- <p> {{ des}} </p> -->
-    <!-- [src] is a attri binding -->
-
-    <!-- <img src = "{{ imgSrc }}">
-    <img [src] = "imgSrc"> -->
-
-    <!-- eventBinding -->
-    <button (click) = "onButtonClick($event)">{{ withBorder ? hide_btn : show_btn }}</button>
+        [ngStyle]="{color: textColor}">{{ title }}</h1>
+    <button (click) = "onButtonClick()">{{ withBorder ? hide_btn : show_btn }}</button>
+    <app-hello [text] = "title"></app-hello>
   `,
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'demoAngular'; // title is an instance/variable of class, is an access modifier, default type is a public(private, protacted)
-  // title: string = 'demoAngular'; //not use.
+export class AppComponent
+  implements OnInit, OnChanges, OnDestroy, AfterViewInit, AfterContentInit, AfterViewChecked, AfterContentChecked {
 
-  hide_btn = "Hide Border";
-
-  show_btn = "Show Border";
-
+  title = 'demoAngular';
   imgSrc = 'https://picsum.photos/200/300';
 
   textColor = 'tomato';
-  backgroundColor = 'black';
-  styleObj = {
-    color: this.textColor,
-    background: this.backgroundColor,
-  };
-
   withBorder = true;
 
-  onButtonClick(event: MouseEvent) {
-    console.log('button clicked');
+  hide_btn = "Hide Border";
+  show_btn = "Show Border";
+
+  ngOnInit(): void {
+    console.log('Parent OnInit ran');
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log('Parent OnChanges ran', { changes });
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    console.log('Parent OnDestroy ran');
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    console.log('Parent ngAfterViewInit ran');
+  }
+
+  ngAfterContentInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
+    console.log('Parent ngAfterContentInit ran');
+  }
+
+  ngAfterViewChecked(): void {
+    //Called after every check of the component's view. Applies to components only.
+    //Add 'implements AfterViewChecked' to the class.
+    console.log('Parent AfterViewChecked ran');
+  }
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+    console.log('Parent ngAfterContentChecked ran');
+
+    //throw new Error("Method not implemented.");
+  }
+
+  onButtonClick() {
     this.withBorder = !this.withBorder;
-  }
-
-  onTextMouseOver() {
-    this.textColor = 'dodgerblue';
-  }
-
-  onTextMouseOut() {
-    this.textColor = 'tomato';
+    this.title = 'Changed';
   }
 }
