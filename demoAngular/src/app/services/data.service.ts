@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+// @Injectable({
+//   providedIn: 'root' // global
+// })
+@Injectable()
 
 export class DataService {
   private _textFromHello: string;
@@ -11,7 +12,7 @@ export class DataService {
     return this._textFromHello;
   }
 
-  setTextFromHello(): string { //export
-    return this._textFromHello = text;
+  setTextFromHello(text: string) { //export
+    this._textFromHello = text;
   }
 }

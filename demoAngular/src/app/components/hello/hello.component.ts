@@ -12,6 +12,7 @@ import {
   Output,
   EventEmitter,
 } from '@angular/core';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-hello',
@@ -27,9 +28,9 @@ export class HelloComponent
   @Output() buttonClicked: EventEmitter<any> = new EventEmitter<any>();
   // @Output() buttonClicked: EventEmitter<string> = new EventEmitter<string>();
 
-  // constructor(private _dataService: Dataservice) { //inject
-  //   this._dataService
-  // }
+  constructor(private _dataService: DataService) { //inject
+    this._dataService
+  }
 
   onButtonClicked() {
     this.text = 'Changed from hello component';
@@ -42,6 +43,7 @@ export class HelloComponent
 
   ngOnInit(): void {
     console.log('Child OnInit ran');
+    this._dataService.setTextFromHello(this.text);
   }
   ngOnChanges(changes: SimpleChanges): void {
     // console.log('Child OnChanges ran', { changes });
