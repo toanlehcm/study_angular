@@ -35,6 +35,7 @@ export class HelloComponent
   onButtonClicked() {
     this.text = 'Changed from hello component';
     this.buttonClicked.emit(this.text);
+    this._dataService.setTextFromHello(this.text); //đẩy giá trị mới cho observable
   }
 
   // onButtonClicked() {
